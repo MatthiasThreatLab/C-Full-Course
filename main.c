@@ -1,16 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 
 int main() {
     
-    // this is a comment
-    /*
-    This is a 
-    multiline comment
-    */
-
-    int age = 25;
+    /*int age = 25;
     char grade = 'S';
     char name[] = "Matthias";
     float pi_float = 3.123456789123456789123456789;
@@ -72,6 +67,65 @@ int main() {
     printf("Your grade is: %c\n", yourGrade);
     printf("Your name is: %s\n", yourName);
     printf("Your price is: %.2f\n", yourPrice);
+
+    FILE* pFileWrite = fopen("output.txt", "w");
+
+    if (pFileWrite == NULL)
+    {
+        printf("Could not open the file");
+        return 1;
+    }
+
+    char text[] = "hey hey hey";
+
+    fprintf(pFileWrite, "%s", text);
+
+    fclose(pFileWrite);
+
+    FILE* pFileRead = fopen("output.txt", "r");
+    char buffer[1024] = {0};
+
+    if (pFileRead == NULL)
+    {
+        printf("Could not open the file");
+        return 1;
+    }
+
+    while (fgets(buffer, sizeof(buffer), pFileRead) != NULL)
+    {
+        printf("%s", buffer);
+    }
+    
+
+    fclose(pFileRead);*/
+
+
+    int number = 0;
+    printf("Enter the number of grades you want to enter in: ");
+    scanf("%d", &number);
+
+    char* grades = malloc(number * sizeof(char));
+
+    if(grades == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    for (int i = 0; i < number; i++)
+    {
+        printf("Enter grade #%d: ", i+1);
+        scanf(" %c", &grades[i]);
+    }
+
+    printf("\n\nHere are all the grades you have entered:\n");
+
+    for (int i = 0; i < number; i++)
+    {
+        printf("Grade #%d: %c\n", i+1, grades[i]);
+    }
+    
+    free(grades);
+    grades = NULL;
     
 
     return 0;
