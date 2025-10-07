@@ -97,7 +97,7 @@ int main() {
     }
     
 
-    fclose(pFileRead);*/
+    fclose(pFileRead);
 
 
     int number = 0;
@@ -105,8 +105,9 @@ int main() {
     scanf("%d", &number);
 
     char* grades = malloc(number * sizeof(char));
+    // char* grades = calloc(number, sizeof(char)); // --> same as malloc but sets all allocateds bytes to 0
 
-    if(grades == NULL) {
+    if(grades == NULL) { // avoids segmentation fault
         printf("Memory allocation failed!\n");
         return 1;
     }
@@ -125,7 +126,58 @@ int main() {
     }
     
     free(grades);
+    grades = NULL;*/
+
+    int number = 0;
+    printf("Enter the number of grades you want to enter in: ");
+    scanf("%d", &number);
+
+    char* grades = malloc(number * sizeof(char));
+
+    if(grades == NULL) { // avoids segmentation fault
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    for (int i = 0; i < number; i++)
+    {
+        printf("Enter grade #%d: ", i+1);
+        scanf(" %c", &grades[i]);
+    }
+
+    int additionalNumberOfGrades = 0;
+    printf("Enter how many grades you would like to add: ");
+    scanf(" %d", &additionalNumberOfGrades);
+
+    char* temp = realloc(grades, (number + additionalNumberOfGrades) * sizeof(char));
+
+    if(temp == NULL) {
+        
+        printf("Memory reallocation failed!\n");
+        return 1;
+
+    } else if (additionalNumberOfGrades > 0) {
+
+        grades = temp;
+        temp = NULL;
+
+        for (int i = number; i < number + additionalNumberOfGrades; i++) {
+            printf("Enter grade #%d: ", i+1);
+            scanf(" %c", &grades[i]);
+        }
+
+        
+    }
+
+    printf("\n\nHere are all the grades you have entered:\n");
+
+    for (int i = 0; i < number + additionalNumberOfGrades; i++) {
+        printf("Grade #%d: %c\n", i+1, grades[i]);
+    }
+    
+    free(grades);
     grades = NULL;
+
     
 
     return 0;
