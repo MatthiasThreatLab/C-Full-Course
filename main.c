@@ -5,7 +5,7 @@
 
 int main() {
     
-    /*int age = 25;
+    int age = 25;
     char grade = 'S';
     char name[] = "Matthias";
     float pi_float = 3.123456789123456789123456789;
@@ -126,7 +126,7 @@ int main() {
     }
     
     free(grades);
-    grades = NULL;*/
+    grades = NULL;
 
     int number = 0;
     printf("Enter the number of grades you want to enter in: ");
